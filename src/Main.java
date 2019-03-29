@@ -4,20 +4,18 @@ public class Main {
 
         double[][] matrix1 = {
                 {1, 2},
-                {0, 1},
-                {2, 7}
+                {3, 4}
         };
 
         double[][] matrix2 = {
-                {2, 5, 5},
-                {6, 7, 8},
-                {1, 2, 1}
+                {0, 5},
+                {6, 7}
         };
 
         Matrix m1 = new Matrix(matrix1);
         Matrix m2 = new Matrix(matrix2);
 
-        System.out.println(m1.switchRows(0, 1));
+        System.out.println(Matrix.kronecker(m1, m2));
 
     }
 

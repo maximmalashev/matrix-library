@@ -117,6 +117,42 @@ public class Matrix {
         return this;
     }
 
+    public static Matrix hadamard(Matrix m1, Matrix m2)
+    {
+        if (m1.cols != m2.cols || m1.rows != m2.rows) {
+            throw new MatrixDimensionMismatchException();
+        }
+
+        double[][] newValues = m1.generateArray();
+
+        for (int i = 0; i < newValues.length; i++) {
+            for (int j = 0; j < newValues[0].length; j++) {
+                newValues[i][j] *= m2.getValue(i, j);
+            }
+        }
+
+        return new Matrix(newValues);
+    }
+
+    public static Matrix kronecker(Matrix m1, Matrix m2) {
+
+        double[][] newValues = new double[m1.rows * m2.rows][m1.cols * m2.cols];
+
+        for (int i = 0; i < m1.rows; i++) {
+            for (int j = 0; j < m1.cols; j++) {
+                double[][] tmp = scale(m1.getValue(i, j), m2).generateArray();
+                for (int k = 0; k < tmp.length; k++) {
+                    for (int l = 0; l < tmp[k].length; l++) {
+                        newValues[tmp.length * i + k][tmp[k].length * j + l] = tmp[k][l];
+                    }
+                }
+            }
+        }
+
+        return new Matrix(newValues);
+    }
+
+
     public double getValue(int row, int col) {
 
         return values[row][col];
